@@ -1,28 +1,71 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/header/Header';
+import Home from './components/home/Home';
+import Gallery from './components/gallery/Gallery';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+import { 
+  BrowserRouter as Router,
+  Route,
+  Switch 
+} from "react-router-dom";
+
+const HomeComponent = () => (
+  <Layout>
+    <Home />
+  </Layout>
+)
+
+const GalleryComponent = () => (
+  <Layout>
+    <Gallery />
+  </Layout>
+)
+
+const routes = [
+  {
+    path: '/',
+    exact: true,
+    header: () => <Header/>,
+    main: () => <HomeComponent />
+  },
+  {
+    path: '/gallery',
+    exact: true,
+    header: () => <Header/>,
+    main: () => <GalleryComponent />
+  
+  },
+];
+
+class Layout extends React.Component {
+
+  render = () => (
+    <div>
+      <Header />
+      <div id="main">
+        { this.props.children }
       </div>
-    );
-  }
+      <div className="footer">
+        Footer
+      </div>
+    </div>
+  )
 }
 
-export default App;
+
+
+const AppRoute = () => (
+  <Router>
+    <Switch>
+      {routes.map((route, i) => 
+        <Route 
+          exact 
+          key={i} 
+          path={route.path} 
+          component={route.main} />)}
+    </Switch>
+  </Router>
+)
+
+export default AppRoute;
