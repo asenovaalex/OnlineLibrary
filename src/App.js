@@ -2,12 +2,21 @@ import React from 'react';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Gallery from './components/gallery/Gallery';
+import Footer from './components/footer/Footer';
+
+import { createStore } from 'redux';
+
+import { Provider } from 'react-redux';
+
+import reducers from "./redux/reducers";
 
 import { 
   BrowserRouter as Router,
   Route,
   Switch 
 } from "react-router-dom";
+
+
 
 const HomeComponent = () => (
   <Layout>
@@ -37,31 +46,31 @@ const routes = [
   },
 ];
 
-class Layout extends React.Component {
-
-  render = () => (
-    <div>
-      <Header />
-      <div id="main">
-        { this.props.children }
-      </div>
+const Layout = (props) => (
+  <div>
+    <Header />
+    <div id="main">
+      { props.children }
     </div>
-  )
-}
+    <Footer />
+  </div>
+)
 
 
-
+const store = createStore(reducers);
 const AppRoute = () => (
-  <Router>
-    <Switch>
-      {routes.map((route, i) => 
-        <Route 
-          exact 
-          key={i} 
-          path={route.path} 
-          component={route.main} />)}
-    </Switch>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        {routes.map((route, i) => 
+          <Route 
+            exact 
+            key={i} 
+            path={route.path} 
+            component={route.main} />)}
+      </Switch>
+    </Router>
+  </Provider>
 )
 
 export default AppRoute;

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import SearchBox from '../common/SearchBox';
+import { connect } from "react-redux";
+
 
 class Home extends Component {
     render(){
@@ -8,14 +11,16 @@ class Home extends Component {
                 <div className="col-md-8">
                     <div className="card">
                         <div className="card-body">
-                            DA ZAREDIM KARTINKA
+                            {this.props.selectedMovies.map((movie, i)=> 
+                                <div key={i}>{movie.title}</div>)
+                            }
                         </div>
                     </div>
                 </div>
                 <div className="col">
                     <div className="card">
                         <div className="card-body">
-                            DA ZAREDIM KOMPONENT
+                            <SearchBox/>
                         </div>
                     </div>
                 </div>
@@ -24,4 +29,12 @@ class Home extends Component {
        )
     }
 }
-export default Home;
+
+const mapStateToProps = state => {
+    return {
+        inputText: state.inputText,
+        selectedMovies: state.selectedMovies
+    }
+};
+
+export default connect(mapStateToProps)(Home);
