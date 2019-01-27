@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Gallery from './components/gallery/Gallery';
@@ -45,9 +44,6 @@ class Layout extends React.Component {
       <Header />
       <div id="main">
         { this.props.children }
-      </div>
-      <div className="footer">
-        Footer
       </div>
     </div>
   )
