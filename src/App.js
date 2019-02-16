@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
+import Login from './components/login/Login';
 import Gallery from './components/gallery/Gallery';
 import Footer from './components/footer/Footer';
 
@@ -33,6 +34,11 @@ const GalleryComponent = () => (
 const routes = [
   {
     path: '/',
+    exact: true,
+    main: () => <Login />
+  },
+  {
+    path: '/home',
     exact: true,
     header: () => <Header/>,
     main: () => <HomeComponent />
